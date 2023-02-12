@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Include Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <style>
+      #result {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-3">
+        <h1 class="text-center">Github Profile Comparer</h1>
+      <!-- Input fields for the two usernames -->
+      <div class="form-group">
+        <label for="username1">Username 1:</label>
+        <input type="text" class="form-control" id="username1" />
+      </div>
+      <div class="form-group">
+        <label for="username2">Username 2:</label>
+        <input type="text" class="form-control" id="username2" />
+      </div>
+      <button id="compare-button" class="btn btn-primary">Compare</button>
+    </div>
+
+    <!-- Result section -->
+    <div class="container mt-3" id="result">
+      <h3 id="winner"></h3>
+      <div class="row">
+        <div class="col-md-6">
+          <h4 id="username1-header"></h4>
+          <div>
+            <img id="username1-avatar" class="mb-3" src="" />
+            <p id="username1-bio"></p>
+            <p id="username1-followers"></p>
+            <p id="username1-repos"></p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h4 id="username2-header"></h4>
+          <div>
+            <img id="username2-avatar" class="mb-3" src="" />
+            <p id="username2-bio"></p>
+            <p id="username2-followers"></p>
+            <p id="username2-repos"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Include jQuery and Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+      // Get references to the input fields, result section, and compare button
+      const username1Input = document.querySelector("#username1");
+      const username2Input = document.querySelector("#username2");
+      const resultSection = document.querySelector("#result");
+      const compareButton = document.querySelector("#compare-button");
+
+      // Get references to the elements in the result section
+      const winnerHeader = document.querySelector("#winner");
+      const username1Header = document.querySelector("#username1-header");
+      const username1Avatar = document.querySelector("#username1-avatar");
+      const username1Bio = document.querySelector("#username1-bio");
+      const username1Followers = document.querySelector("#username1-followers");
+      const username1Repos = document.querySelector("#username1-repos");
+      const username2Header = document.querySelector("#username2-header");
+      const username2Avatar = document.querySelector("#username2-avatar");
+      const username2Bio = document.querySelector("#username2-bio");
+      const username2Followers = document.querySelector("#username2-followers");
+      const username2Repos = document.querySelector("#username2-repos");
+
+      const compare = async () => {
+        // Get the values of the input fields
+        const username1 = username1Input.value;
+        const username2 = username2Input.value;
+
+        // Fetch the user data from the GitHub API
+        const user1Response = await fetch(
+          `https://api.github.com/users/${username1}`
+        );
+        const user2Response =
+          username2 === "random"
+            ? await fetch(
+                "https://api.github.com/users/" +
+                  Math.floor(Math.random() * Math.floor(200))
+              )
+            : await fetch(`https://api.github.com/users/${username2}`);
+
+        const user1 = await user1Response.json();
+        const user2 = await user2Response.json();
+
+        // Determine the winner based on the number of followers
+        const winner = user1.followers > user2.followers ? user1 : user2;
+
+        // Update the result section with the results
+        winnerHeader.textContent = `Winner: ${winner.login}`;
+        username1Header.textContent = user1.login;
+        username1Avatar.src = user1.avatar_url;
+        username1Bio.textContent = user1.bio;
+        username1Followers.textContent = `Followers: ${user1.followers}`;
+        username1Repos.textContent = `Repos: ${user1.public_repos}`;
+        username2Header.textContent = user2.login;
+        username2Avatar.src = user2.avatar_url;
+        username2Bio.textContent = user2.bio;
+        username2Followers.textContent = `Followers: ${user2.followers}`;
+        username2Repos.textContent = `Repos: ${user2.public_repos}`;
+
+        // Show the result section
+        resultSection.style.display = "block";
+      }; // Attach an event listener to the compare button to compare the users when the button is clicked
+      compareButton.addEventListener("click", compare);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,102 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  padding: 30px;
+}
+
+.header {
+  margin-bottom: 50px;
+}
+
+.header h1 {
+  font-size: 36px;
+  color: #333;
+}
+
+.github-compare-form {
+  margin-bottom: 50px;
+}
+
+.github-compare-form input[type="text"] {
+  width: 30%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 18px;
+}
+
+.github-compare-form input[type="submit"] {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #333;
+  border-radius: 4px;
+  font-size: 18px;
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+}
+
+.compare-result {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.compare-result .profile {
+  width: 45%;
+  background-color: #fff;
+  padding: 30px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px #ccc;
+}
+
+.compare-result .profile h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.compare-result .profile img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 30px;
+}
+
+.compare-result .profile p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.compare-result .profile .stats {
+  display: flex;
+  justify-content: center;
+}
+
+.compare-result .profile .stats p {
+  font-size: 18px;
+  color: #333;
+  margin: 0 30px;
+}
+
+.winner {
+  background-color: #33cc33;
+  color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  font-size: 36px;
+  text-align: center;
+  margin-top: 50px;
+}
